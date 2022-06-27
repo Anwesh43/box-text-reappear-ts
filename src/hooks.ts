@@ -13,7 +13,7 @@ export const useAnimatedScale = () => {
                 setAnimated(true)
                 const interval = setInterval(() => {
                     setScale((prev : number) => {
-                        if (scale > 1) {
+                        if (prev > 1) {
                             setAnimated(false)
                             clearInterval(interval)
                             return 0 
@@ -46,15 +46,15 @@ export const useDimension = () => {
 const sinify : Function = (scale : number) => Math.sin(scale * Math.PI)
 
 export const useStyle = (w : number, h : number, scale : number) => {
-    const size : number = Math.min(w, h) / 10 
+    const size : number = Math.min(w, h) / 5 
     const x : number = w / 2 
     const y : number = h / 2
     return {
         parentStyle() : CSSProperties {
            return {
                 position: 'absolute', 
-                left: `${w / 2}px`,
-                top: `${h / 2}px`
+                left: `${x}px`,
+                top: `${y}px`
            }
         },
         boxStyle() : CSSProperties {
@@ -70,11 +70,12 @@ export const useStyle = (w : number, h : number, scale : number) => {
         },
         textStyle() : CSSProperties {
             return {
+                position: 'absolute',
                 fontSize : `${Math.min(w, h) / 40}px`,
-                left: `${-(w / 2 - 100) + (w / 2) * sinify(scale)}px`,
-                top: `-100px`,
+                left: `${-(w / 2 + 200) + (w / 2 + 100) * sinify(scale)}px`,
+                top: `-50px`,
                 width: '200px',
-                height: '200px',
+                height: '100px',
                 color: 'black'
             }
         }
